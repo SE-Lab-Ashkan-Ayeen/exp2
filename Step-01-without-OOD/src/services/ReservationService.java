@@ -15,6 +15,10 @@ public class ReservationService {
             res.room.price *= 0.9;
         }
 
+        if(notifier != null){
+            this.notifier = notifier;
+        }
+
         switch (paymentType){
             case CARD:
                 paymentProcessor.payByCard(res.totalPrice());
@@ -35,9 +39,13 @@ public class ReservationService {
 
        switch (this.notifier){
            case EMAIL :
-           EmailSender emailSender = new EmailSender();
-           emailSender.sendEmail(res.customer.email, "Your reservation confirmed!");
-           break;
+               EmailSender emailSender = new EmailSender();
+               emailSender.sendEmail(res.customer.email, "Your reservation confirmed!");
+               break;
+           case SMS:
+               SmsSender smsSender = new SmsSender();
+               smsSender.sendSms(res.customer.mobile, "Your reservation confirmed!");
+               break;
            default:
                System.out.println("There is no Message Provider");
        }
