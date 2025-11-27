@@ -14,5 +14,11 @@ public class Main {
 
         ReservationService service = new ReservationService();
         service.makeReservation(res, PaymentMethods.PAYPAL, Notifier.EMAIL);
+
+        Customer onsiteCustomer = new Customer("Sara", "sara@example.com","09351234567", "Tehran");
+        Room standardRoom = new Room("105", "standard", 90);
+        Reservation onsiteRes = new Reservation(standardRoom, onsiteCustomer, 3);
+
+        service.makeReservation(onsiteRes, PaymentMethods.ONSITE, Notifier.SMS);
     }
 }
